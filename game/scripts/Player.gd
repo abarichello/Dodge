@@ -1,7 +1,14 @@
 extends Area2D
+
 var screensize
 export (int) var SPEED
 var velocity = Vector2()
+signal hit
+
+func start(pos):
+	position = pos
+	show()
+	monitoring = true
 
 func _ready():
 	screensize = get_viewport_rect().size
@@ -33,3 +40,9 @@ func _process(delta):
 	elif velocity.y != 0:
 		$AnimatedSprite.animation = "up"
 		$AnimatedSprite.flip_v = velocity.y > 0
+
+
+func _on_Player_body_entered(body):
+	hide()
+	emit_signal("hit")
+	call_deferred("set_monitoring", false)
