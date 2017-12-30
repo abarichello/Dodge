@@ -35,7 +35,7 @@ height = 20.0
 
 [node name="Enemy" type="RigidBody2D"]
 
-position = Vector2( 101.129, 72.971 )
+position = Vector2( -81.9097, 66.3551 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 0

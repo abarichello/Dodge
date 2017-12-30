@@ -19,7 +19,7 @@ Enemy = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
-position = Vector2( 254.138, 518.401 )
+position = Vector2( -78.9849, 424.946 )
 
 [node name="EnemyTimer" type="Timer" parent="."]
 

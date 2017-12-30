@@ -2,7 +2,7 @@ extends Node
 
 export (PackedScene) var Enemy
 var score
-var enemy_array=[]
+var enemy_array = []
 
 func _ready():
 	randomize()
@@ -13,15 +13,14 @@ func new_game():
 	$HUD.update_score(score)
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	
+	for i in range(0, enemy_array.size()-1):
+		remove_child(enemy_array[i])
 	$HUD.show_message("Get Ready")
 
 func _game_over():
 	$ScoreTimer.stop()
 	$EnemyTimer.stop()
 	$HUD.show_game_over()
-	for i in enemy_array:
-		remove_child(i)
 
 func _on_StartTimer_timeout():
 	$EnemyTimer.start()
