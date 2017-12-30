@@ -1,45 +1,43 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -1.34184, -1.35395, 0, 0, 0, 0, 480.255, 0.35144, 0, 0, 0, 0, 480.226, 720.153, 0, 0, 0, 0, -0.624863, 719.794, 0, 0, 0, 0, -0.983353, -1.35395, 0, 0, 0, 0, -1.34184, -1.35395 )
+"points": PoolVector2Array( 0, 0, 0, 0, 10.8001, -0.581976, 0, 0, 0, 0, 480.255, 0.35144, 0, 0, 0, 0, 480.226, 720.153, 0, 0, 0, 0, -0.624863, 719.794, 0, 0, 0, 0, -0.029953, 114.036, 0, 0, 0, 0, -0.029953, -0.581976, 0, 0, 0, 0, 10.8001, -0.581976 )
 }
 
 [node name="Main" type="Node"]
 
 script = ExtResource( 1 )
-Mob = null
+Enemy = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." instance=ExtResource( 3 )]
 
-position = Vector2( 58.7122, 302.57 )
+position = Vector2( 254.138, 518.401 )
 
 [node name="EnemyTimer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 0.5
+wait_time = 0.2
 one_shot = false
 autostart = false
 
 [node name="StartTimer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 2.0
 one_shot = true
 autostart = false
 
 [node name="StartPosition" type="Position2D" parent="."]
 
 position = Vector2( 240, 450 )
-
-[node name="EnemyPath" type="Path2D" parent="."]
-
-curve = SubResource( 1 )
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -48,8 +46,29 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="EnemyPath" type="Path2D" parent="."]
+
+curve = SubResource( 1 )
+
+[node name="SpawnLocation" type="PathFollow2D" parent="EnemyPath"]
+
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+
 [connection signal="hit" from="Player" to="." method="_game_over"]
 
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
+
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+
+[connection signal="start_game" from="HUD" to="." method="new_game"]
 
 

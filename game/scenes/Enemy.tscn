@@ -30,13 +30,12 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=2]
 
 custom_solver_bias = 0.0
-radius = 10.0
+radius = 9.86522
 height = 20.0
 
 [node name="Enemy" type="RigidBody2D"]
 
-position = Vector2( 89.7525, 59.2 )
-scale = Vector2( 0.75, 0.75 )
+position = Vector2( 101.129, 72.971 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 0
@@ -59,19 +58,21 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-MIN_SPEED = null
-MAX_SPEED = null
+MIN_SPEED = 150
+MAX_SPEED = 300
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
+scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-position = Vector2( -1.20286, -0.187481 )
-scale = Vector2( 6.59699, 2.66054 )
+position = Vector2( -0.346331, 1.15941 )
+scale = Vector2( 4.79574, 2.53876 )
 shape = SubResource( 2 )
 
 [node name="Visibility" type="VisibilityNotifier2D" parent="."]
