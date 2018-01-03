@@ -1,58 +1,122 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://art/playerGrey_walk1.png" type="Texture" id=2]
-[ext_resource path="res://art/playerGrey_walk2.png" type="Texture" id=3]
-[ext_resource path="res://art/playerGrey_up1.png" type="Texture" id=4]
+[ext_resource path="res://art/playerGrey_up1.png" type="Texture" id=2]
+[ext_resource path="res://art/playerGrey_walk1.png" type="Texture" id=3]
+[ext_resource path="res://art/playerGrey_walk2.png" type="Texture" id=4]
 [ext_resource path="res://art/playerGrey_up2.png" type="Texture" id=5]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="ParticlesMaterial" id=1]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 1
+emission_sphere_radius = 100.0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 50.0
+flatness = 0.0
+gravity = Vector3( 0, 10, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = -1.97471e-41
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 1.0
+scale = 0.2
+scale_random = 0.0
+color = Color( 1, 1, 1, 0.287294 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Angle", "Angular Velocity", "Animation", "Color", "Damping", "Emission Shape", "Flags", "Gravity", "Hue Variation", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Resource", "Scale", "Spread", "Tangential Accel", "Trail" ]
+
+[sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "right",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "up",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 
 custom_solver_bias = 0.0
-radius = 10.7272
+radius = 10.8803
 height = 19.2514
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" index="0"]
 
-position = Vector2( 253.439, 465.95 )
+position = Vector2( 213.441, 513.99 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
+gravity = 0.0
 linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+_sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pause", "Pickable", "Transform", "Visibility", "Z" ]
 __meta__ = {
 "_edit_group_": true
 }
 SPEED = 200
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Particles2D" type="Particles2D" parent="." index="0"]
+
+scale = Vector2( 0.1, 0.11 )
+emitting = true
+amount = 5
+lifetime = 0.6
+one_shot = false
+preprocess = 0.0
+speed_scale = 2.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = SubResource( 1 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Material", "Pause", "Process Material", "Textures", "Time", "Transform", "Visibility", "Z" ]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
 
 scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "right"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( -0.0229802, 1.00708 )
-scale = Vector2( 3.36617, 1.72683 )
-shape = SubResource( 2 )
+position = Vector2( -0.59384, 1.00708 )
+scale = Vector2( 2.59217, 1.72683 )
+shape = SubResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 

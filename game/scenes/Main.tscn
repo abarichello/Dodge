@@ -1,65 +1,102 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://art/House In a Forest Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://art/gameover.wav" type="AudioStream" id=6]
 
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 10.8001, -0.581976, 0, 0, 0, 0, 480.255, 0.35144, 0, 0, 0, 0, 480.226, 720.153, 0, 0, 0, 0, -0.624863, 719.794, 0, 0, 0, 0, -0.029953, 114.036, 0, 0, 0, 0, -0.029953, -0.581976, 0, 0, 0, 0, 10.8001, -0.581976 )
+"points": PoolVector2Array( 0, 0, 0, 0, -49.2987, -47.4375, 0, 0, 0, 0, 516.619, -44.4892, 0, 0, 0, 0, 511.178, 760.221, 0, 0, 0, 0, -45.2175, 761.581, 0, 0, 0, 0, -45.2175, -31.113, 0, 0, 0, 0, -49.2987, -47.4375 )
 }
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
 Enemy = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -18.0
+margin_top = -14.0
+margin_right = 498.0
+margin_bottom = 730.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.55896, 0.72628, 0.941406, 1 )
+
+[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( -78.9849, 424.946 )
 
-[node name="EnemyTimer" type="Timer" parent="."]
+[node name="EnemyTimer" type="Timer" parent="." index="2"]
 
 process_mode = 1
 wait_time = 0.2
 one_shot = false
 autostart = false
 
-[node name="StartTimer" type="Timer" parent="."]
+[node name="StartTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
 wait_time = 2.0
 one_shot = true
 autostart = false
 
-[node name="StartPosition" type="Position2D" parent="."]
+[node name="StartPosition" type="Position2D" parent="." index="4"]
 
 position = Vector2( 240, 450 )
 
-[node name="ScoreTimer" type="Timer" parent="."]
+[node name="ScoreTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="HUD" parent="." instance=ExtResource( 4 )]
+[node name="HUD" parent="." index="6" instance=ExtResource( 4 )]
 
-[node name="EnemyPath" type="Path2D" parent="."]
+[node name="EnemyPath" type="Path2D" parent="." index="7"]
 
 curve = SubResource( 1 )
 
-[node name="SpawnLocation" type="PathFollow2D" parent="EnemyPath"]
+[node name="SpawnLocation" type="PathFollow2D" parent="EnemyPath" index="0"]
 
+position = Vector2( -49.2987, -47.4375 )
+rotation = 0.00521099
 offset = 0.0
 h_offset = 0.0
 v_offset = 0.0
 rotate = true
 cubic_interp = true
 loop = true
+lookahead = 4.0
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Death" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="hit" from="Player" to="." method="_game_over"]
 
